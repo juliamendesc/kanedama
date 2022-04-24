@@ -1,12 +1,17 @@
-import 'styles/globals.css'
-import type { AppProps } from 'next/app'
-import { DisplayPortProvider } from 'providers/displayPort'
+import type { AppProps } from 'next/app';
+import { FC } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { DisplayPortProvider } from 'providers/displayPort';
+import { theme } from 'styles/theme';
 
-function MyApp({ Component, pageProps }: AppProps) {
-    return(
-    <DisplayPortProvider>
-      <Component {...pageProps} />
-    </DisplayPortProvider>
-  )
-}
-export default MyApp
+const MyApp: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <DisplayPortProvider>
+        <Component {...pageProps} />
+      </DisplayPortProvider>
+    </ThemeProvider>
+  );
+};
+
+export default MyApp;
