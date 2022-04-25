@@ -5,22 +5,30 @@ import styled from 'styled-components';
 import { StyledHeader } from 'components/Navbar';
 import { StyledCompanyInfo } from 'components/CompanyInfo';
 import { StyledAccountsInfo } from 'components/AccountsInfo';
-import { ProfileCard } from 'components/ProfileCard';
+import { ProfileCardHeader } from 'components/ProfileCardHeader';
+import { useFetcher } from 'hooks/useFetcher';
 
 const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 600px) and (max-width: 999px) {
-    margin: 15px;
+  @media (min-width: ${({ theme }) => theme.mobile.medium}) and (max-width: ${({ theme }) => theme.mobile.large}){
+    margin: 0.75rem;
   }
 
-  @media (min-width: 1000px) {
-    margin: 0 100px;
+  @media (min-width: ${({ theme }) => theme.mobile.large}) {
+    margin: 0 5rem;
   }
 `;
 
 const Home: NextPage = () => {
+  const {data:user} = useFetcher('https://randomuser.me/api/');
+  if (!user) return null;
+  const {first, last} = user.results[0].name;
+  console.log(user);
+  // const {} = useFetcher
+
+
   return (
     <>
       <GlobalStyle />
@@ -30,7 +38,7 @@ const Home: NextPage = () => {
       </Head>
       <StyledHeader />
       <Wrapper>
-        <ProfileCard name="Julia" lastname="Mendes" />
+        <ProfileCardHeader name={first} lastname={last} />
         <StyledCompanyInfo />
         <StyledAccountsInfo />
       </Wrapper>
