@@ -2,14 +2,22 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import GlobalStyle from 'styles/global';
 import styled from 'styled-components';
-import { StyledNavbar } from 'components/Navbar';
+import { StyledHeader } from 'components/Navbar';
 import { StyledCompanyInfo } from 'components/CompanyInfo';
 import { StyledAccountsInfo } from 'components/AccountsInfo';
-import { ProfileCard } from '@/components/ProfileCard';
+import { ProfileCard } from 'components/ProfileCard';
 
 const Wrapper = styled.main`
-  height: 100vh;
-  margin: 10px 100px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 600px) and (max-width: 999px) {
+    margin: 15px;
+  }
+
+  @media (min-width: 1000px) {
+    margin: 0 100px;
+  }
 `;
 
 const Home: NextPage = () => {
@@ -20,9 +28,9 @@ const Home: NextPage = () => {
         <title>Kanedama</title>
         <meta name="description" content="Frontend Engineer Test by Julia Mendes" />
       </Head>
-      <StyledNavbar />
+      <StyledHeader />
       <Wrapper>
-        <ProfileCard name="Julia" lastname='Mendes' />
+        <ProfileCard name="Julia" lastname="Mendes" />
         <StyledCompanyInfo />
         <StyledAccountsInfo />
       </Wrapper>
