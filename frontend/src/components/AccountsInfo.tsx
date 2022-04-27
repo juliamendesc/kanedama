@@ -19,7 +19,8 @@ const AccountsInfoWrapper = styled.section`
   gap: 1rem;
   padding: 0.25rem;
 
-  @media (min-width: ${({ theme }) => theme.mobile.medium}) and (max-width: ${({ theme }) => theme.mobile.large}) {
+  @media (min-width: ${({ theme }) => theme.mobile.medium}) and (max-width: ${({ theme }) =>
+      theme.mobile.large}) {
     margin: 0;
     grid-template-columns: repeat(1, minmax(200px, 1fr));
     gap: 1rem;
@@ -63,43 +64,33 @@ const GridItem = styled.p<{ textAlign?: string; fontWeight?: string }>`
   }
 `;
 
-export const StyledAccountsInfo = () => {
+export type AccountsInfoProps = {
+    account_id: string;
+    account_number: string;
+    currency: string;
+    current: number;
+}[];
+
+export const StyledAccountsInfo = ({accounts}: {
+  accounts: AccountsInfoProps;
+}) => {
   return (
     <>
       <StyledHeader>Accounts</StyledHeader>
       <AccountsInfoWrapper>
-        <StyledArticle color={theme.colors.mansaPurple}>
-          <GridItem fontWeight="bold">Account Number:</GridItem>
-          <GridItem fontWeight="bold" textAlign="end">
-            19040061
-          </GridItem>
-          <GridItem>Balance:</GridItem>
-          <GridItem textAlign="end">1844.23 GBP</GridItem>
-        </StyledArticle>
-        <StyledArticle color={theme.colors.mansaPurple}>
-          <GridItem fontWeight="bold">Account Number:</GridItem>
-          <GridItem fontWeight="bold" textAlign="end">
-            19040061
-          </GridItem>
-          <GridItem>Balance:</GridItem>
-          <GridItem textAlign="end">1844.23 GBP</GridItem>
-        </StyledArticle>
-        <StyledArticle color={theme.colors.mansaPurple}>
-          <GridItem fontWeight="bold">Account Number:</GridItem>
-          <GridItem fontWeight="bold" textAlign="end">
-            19040061
-          </GridItem>
-          <GridItem>Balance:</GridItem>
-          <GridItem textAlign="end">1844.23 GBP</GridItem>
-        </StyledArticle>
-        <StyledArticle color={theme.colors.mansaPurple}>
-          <GridItem fontWeight="bold">Account Number:</GridItem>
-          <GridItem fontWeight="bold" textAlign="end">
-            19040061
-          </GridItem>
-          <GridItem>Balance:</GridItem>
-          <GridItem textAlign="end">1844.23 GBP</GridItem>
-        </StyledArticle>
+        {accounts &&
+          accounts.map((account) => (
+            <StyledArticle color={theme.colors.mansaPurple} key={account.account_id}>
+              <GridItem fontWeight="bold">Account Number:</GridItem>
+              <GridItem fontWeight="bold" textAlign="end">
+                {account.account_number}
+              </GridItem>
+              <GridItem>Balance:</GridItem>
+              <GridItem textAlign="end">
+                {account.current} {account.currency}
+              </GridItem>
+            </StyledArticle>
+          ))}
       </AccountsInfoWrapper>
     </>
   );

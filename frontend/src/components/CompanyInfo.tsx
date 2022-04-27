@@ -52,18 +52,24 @@ const GridItem = styled.p<{ textAlign?: string }>`
   }
 `;
 
-export const StyledCompanyInfo = () => {
+type CompanyInfoProps = {
+    denomination: string;
+    address: string;
+    siret: string;
+}
+
+export const StyledCompanyInfo = ({denomination, address, siret}:CompanyInfoProps) => {
   return (
     <>
       <StyledHeader>Company</StyledHeader>
       <CompanyInfoWrapper>
         <StyledArticle>
           <GridItem>Name:</GridItem>
-          <GridItem textAlign="end">MANSA GROUP</GridItem>
+          <GridItem textAlign="end">{denomination}</GridItem>
           <GridItem>SIRET:</GridItem>
-          <GridItem textAlign="end">837 837 837 837</GridItem>
+          <GridItem textAlign="end">{siret}</GridItem>
           <GridItem>Address:</GridItem>
-          <GridItem textAlign="end">112 AV DE PARIS 94300 VINCENNES</GridItem>
+          <GridItem textAlign="end">{address}</GridItem>
         </StyledArticle>
       </CompanyInfoWrapper>
     </>
