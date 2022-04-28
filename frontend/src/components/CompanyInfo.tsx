@@ -1,16 +1,12 @@
 import styled from 'styled-components';
+import { ComponentArticle, ComponentItem, StyledHeader } from 'styles/core';
+import { theme } from 'styles/theme';
 
-const StyledHeader = styled.h3`
-  font-weight: ${({ theme }) => theme.typography.fontWeightBold};
-  color: ${({ theme }) => theme.colors.darkBlue};
-  font-size: 1.4rem;
-  margin: 3rem auto 1rem;
-
-  @media (min-width: ${({ theme }) => theme.mobile.medium}) {
-    font-size: 1.6rem;
-    margin: 2rem 0 2rem;
-  }
-`;
+type CompanyInfoProps = {
+  denomination: string;
+  address: string;
+  siret: string;
+}
 
 const CompanyInfoWrapper = styled.section`
   justify-content: center;
@@ -26,13 +22,8 @@ const CompanyInfoWrapper = styled.section`
   }
 `;
 
-const StyledArticle = styled.article`
-  font-weight: ${({ theme }) => theme.typography.fontWeightRegular};
-  color: ${({ theme }) => theme.colors.darkBlue};
-
-  display: grid;
+export const StyledArticle = styled(ComponentArticle)`
   grid-template-columns: repeat(1, 0.4fr 1fr);
-  grid-template-rows: auto;
   padding: 0.25rem;
 
   @media (min-width: ${({ theme }) => theme.mobile.medium}) {
@@ -40,10 +31,8 @@ const StyledArticle = styled.article`
   }
 `;
 
-const GridItem = styled.p<{ textAlign?: string }>`
-  text-align: ${({ textAlign }) => textAlign || 'start'};
+const GridItem = styled(ComponentItem)`
   font-size: 1.2rem;
-  padding: 0.25rem;
 
   @media (min-width: ${({ theme }) => theme.mobile.medium}) {
     font-size: 1.4rem;
@@ -52,20 +41,14 @@ const GridItem = styled.p<{ textAlign?: string }>`
   }
 `;
 
-type CompanyInfoProps = {
-    denomination: string;
-    address: string;
-    siret: string;
-}
-
 export const StyledCompanyInfo = ({denomination, address, siret}:CompanyInfoProps) => {
   return (
     <>
       <StyledHeader>Company</StyledHeader>
       <CompanyInfoWrapper>
-        <StyledArticle>
+        <StyledArticle fontWeight={theme.typography.fontWeightRegular} color={theme.colors.darkBlue}>
           <GridItem>Name:</GridItem>
-          <GridItem textAlign="end">{denomination}</GridItem>
+          <GridItem textAlign="end" data-testid="denomination">{denomination}</GridItem>
           <GridItem>SIRET:</GridItem>
           <GridItem textAlign="end">{siret}</GridItem>
           <GridItem>Address:</GridItem>

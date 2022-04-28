@@ -1,17 +1,13 @@
 import styled from 'styled-components';
+import { ComponentArticle, ComponentItem, StyledHeader } from 'styles/core';
 import { theme } from 'styles/theme';
 
-const StyledHeader = styled.h3`
-  font-weight: ${({ theme }) => theme.typography.fontWeightBold};
-  color: ${({ theme }) => theme.colors.darkBlue};
-  font-size: 1.4rem;
-  margin: 3rem auto 1rem;
-
-  @media (min-width: ${({ theme }) => theme.mobile.medium}) {
-    font-size: 1.6rem;
-    margin: 2rem 0 2rem;
-  }
-`;
+export type AccountsInfoProps = {
+  account_id: string;
+  account_number: string;
+  currency: string;
+  current: number;
+}[];
 
 const AccountsInfoWrapper = styled.section`
   margin: 0 auto;
@@ -33,29 +29,21 @@ const AccountsInfoWrapper = styled.section`
   }
 `;
 
-const StyledArticle = styled.article<{ color?: string }>`
-  background: ${({ theme }) => theme.colors.backgroundLightColor};
+const StyledArticle = styled(ComponentArticle)`
   border: 1px solid ${({ theme }) => theme.colors.mansaPurple};
   border-radius: 5px;
 
-  color: ${({ color }) => color};
-  padding: 0.75rem 0.25rem;
-
-  display: grid;
   grid-template-columns: repeat(1, 1.3fr 2fr);
-  grid-template-rows: auto;
   gap: 1rem;
+  padding: 0.75rem 0.25rem;
 
   @media (min-width: ${({ theme }) => theme.mobile.medium}) {
     grid-template-columns: repeat(1, 1.3fr 1fr);
   }
 `;
 
-const GridItem = styled.p<{ textAlign?: string; fontWeight?: string }>`
-  text-align: ${({ textAlign }) => textAlign || 'start'};
-  font-weight: ${({ fontWeight }) => fontWeight || 'normal'};
+const GridItem = styled(ComponentItem)`
   background: inherit;
-  padding: 0.25rem;
   font-size: 1rem;
 
   @media (min-width: ${({ theme }) => theme.mobile.large}) {
@@ -63,13 +51,6 @@ const GridItem = styled.p<{ textAlign?: string; fontWeight?: string }>`
     margin: 0;
   }
 `;
-
-export type AccountsInfoProps = {
-    account_id: string;
-    account_number: string;
-    currency: string;
-    current: number;
-}[];
 
 export const StyledAccountsInfo = ({accounts}: {
   accounts: AccountsInfoProps;
@@ -80,7 +61,7 @@ export const StyledAccountsInfo = ({accounts}: {
       <AccountsInfoWrapper>
         {accounts &&
           accounts.map((account) => (
-            <StyledArticle color={theme.colors.mansaPurple} key={account.account_id}>
+            <StyledArticle color={theme.colors.mansaPurple} background={theme.colors.backgroundLightColor} key={account.account_id}>
               <GridItem fontWeight="bold">Account Number:</GridItem>
               <GridItem fontWeight="bold" textAlign="end">
                 {account.account_number}

@@ -1,7 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProfileCardHeader } from "components/ProfileCardHeader";
+import Spinner from 'components/Spinner';
+import { StyledHeader } from '@/components/Header';
+import useFetcher from 'hooks/useFetcher';
+import BASE_URL from 'libs/constants';
+import { ComponentArticle, ComponentItem, Title, Wrapper } from 'styles/core';
+import GlobalStyle from 'styles/global';
 
+type UserProfileProps = {
+  name: {
+    first: string;
+    last: string;
+  };
+  login: { username: string };
+  dob: { age: number };
+  location: { city: string; country: string };
+  picture: { thumbnail?: string; large?: string };
+};
 
 const Card = styled.div`
   width: 100%;
@@ -11,91 +26,20 @@ const Card = styled.div`
   position: relative;
   text-align: center;
   border-radius: 1.5rem;
-  margin: 0 auto;
-  background-color: var(--color-white);
-  box-shadow: 0 5rem 10rem -2rem rgba(8,70,94,0.50);
-  &::before {
-    content: '';
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 14rem;
-    position: absolute;
-  }
-  .basic-info {
-    display: flex;
-    margin-top: 1.9rem;
-    align-items: center;
-    margin-bottom: .8rem;
-    justify-content: center;
-    @media (min-width: 480px) {
-      margin-top: 1.7rem;
-    }
-    &__name {
-      font-size: 1.8rem;
-      line-height: 2.3rem;
-      color: var(--color-dark-blue);
-      font-weight: var(--weight-bold);
-    }
-    &__age {
-      font-size: 1.8rem;
-      line-height: 2.3rem;
-      margin-left: .85rem;
-      color: var(--color-gray-blue);
-      font-weight: var(--weight-regular);
-    }
-  }
-  .location {
-    font-size: 1.4rem;
-    line-height: 1.8rem;
-    margin-bottom: 2.23rem;
-    color: var(--color-gray-blue);
-  }
+  margin: 50px auto;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 0 2rem 3rem -1rem ${({ theme }) => theme.colors.backgroundMediumColor};
   .divider {
     width: 100%;
-    height: .1rem;
-    background-color: #E8E9EC;
-  }
-  .social-info {
-    display: flex;
-    margin-top: 2.45rem;
-    padding-left: 4.1rem;
-    padding-right: 5.2rem;
-    align-items: center;
-    justify-content: flex-start;
-    @media (min-width: 480px) {
-      padding-left: 4.7rem;
-      padding-right: 5.4rem;
-    }
-    &__likes {
-      margin-left: 3.85rem;
-      margin-right: 4.65rem;
-      @media (min-width: 480px) {
-        margin-left: 4.85rem;
-        margin-right: 5.65rem;
-      }
-    }
-    h3 {
-      font-size: 1.8rem;
-      line-height: 2.3rem;
-      margin-bottom: .4rem;
-      color: var(--color-dark-blue);
-      font-weight: var(--weight-bold);
-    }
-    p {
-      font-size: 1rem;
-      line-height: 1.3rem;
-      letter-spacing: 0.75rem;
-      color: var(--color-gray-blue);
-      font-weight: var(--weight-regular);
-    }
+    height: 0.1rem;
+    background-color: #e8e9ec;
   }
 `;
 
 const Avatar = styled.div`
   z-index: 1;
   border-radius: 50%;
-  margin-top: 8.7rem;
+  margin-top: 4rem;
   position: relative;
   align-items: center;
   display: inline-flex;
@@ -103,7 +47,7 @@ const Avatar = styled.div`
     width: 9.6rem;
     height: 9.6rem;
     border-radius: 50%;
-    border: .5rem solid var(--color-white);
+    border: 0.5rem solid var(--color-white);
     @media (min-width: 480px) {
       width: 10.6rem;
       height: 10.6rem;
@@ -111,30 +55,56 @@ const Avatar = styled.div`
   }
 `;
 
-export default function ProfileCard({ userInfo }) {
+const UserDetails = styled(ComponentArticle)`
+  grid-template-columns: repeat(1, 0.4fr 1fr);
+  place-items: center;
+
+  @media (min-width: ${({ theme }) => theme.mobile.medium}) {
+    grid-template-columns: repeat(1, 0.1fr 1fr);
+  }
+`;
+
+const UserItem = styled(ComponentItem)`
+  background-color: ${({ theme }) => theme.colors.white};
+  font-size: 1.2rem;
+  padding: 1.5rem;
+
+@media (min-width: ${({ theme }) => theme.mobile.medium}) {
+  font-size: 1.4rem;
+  text-align: start;
+  margin: 0;
+}
+`;
+
+export default function ProfileCard() {
+  const { data: userInfo } = useFetcher(BASE_URL.user) as any;
+  if (!userInfo) return <Spinner />;
+  const userProfile = userInfo.results[0] as UserProfileProps;
+
   return (
-    <Card>
-      <ProfileCardHeader name={userInfo.name} lastname={userInfo.lastname} />
-      <div className="basic-info">
-        <h2 className="basic-info__name">{ userInfo.username }</h2>
-        <p className="basic-info__age">{ userInfo.age }</p>
-      </div>
-      <p className="location">{ userInfo.location }</p>
-      <div className="divider"></div>
-      <div className="social-info">
-        <div className="social-info__followers">
-          <h3>{ userInfo.followers }</h3>
-          <p>Followers</p>
-        </div>
-        <div className="social-info__likes">
-          <h3>{ userInfo.likes }</h3>
-          <p>Likes</p>
-        </div>
-        <div className="social-info__photos">
-          <h3>{ userInfo.photos }</h3>
-          <p>Photos</p>
-        </div>
-      </div>
-    </Card>
+    <>
+      <GlobalStyle />
+      <StyledHeader />
+      <Wrapper>
+        <Card>
+          <Avatar>
+            <img src={userProfile.picture.large} alt="avatar" />
+          </Avatar>
+
+          <Title>
+            {userProfile.name.first} {userProfile.name.last}
+          </Title>
+          <UserDetails>
+            <UserItem data-testid="userName">Username:</UserItem>
+            <UserItem>{userProfile.login.username}</UserItem>
+            <UserItem>Age:</UserItem> <UserItem>{userProfile.dob.age}</UserItem>
+            <UserItem>Location:</UserItem>{' '}
+            <UserItem>
+              {userProfile.location.city} - {userProfile.location.country}
+            </UserItem>
+          </UserDetails>
+        </Card>
+      </Wrapper>
+    </>
   );
 }

@@ -1,28 +1,15 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import GlobalStyle from 'styles/global';
-import styled from 'styled-components';
-import { StyledHeader } from 'components/Navbar';
+import { StyledHeader } from 'components/Header';
+import ProfileCardHeader from 'components/ProfileCardHeader';
 import { StyledCompanyInfo } from 'components/CompanyInfo';
 import { AccountsInfoProps, StyledAccountsInfo } from 'components/AccountsInfo';
-import { ProfileCardHeader } from 'components/ProfileCardHeader';
 import Spinner from 'components/Spinner';
 import useFetcher from 'hooks/useFetcher';
 import BASE_URL from 'libs/constants';
-
-const Wrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: ${({ theme }) => theme.mobile.medium}) and (max-width: ${({ theme }) =>
-      theme.mobile.large}) {
-    margin: 0.75rem;
-  }
-
-  @media (min-width: ${({ theme }) => theme.mobile.large}) {
-    margin: 0 5rem;
-  }
-`;
+import { useRouter } from 'next/router';
+import { Wrapper } from 'styles/core';
 
 export type Company = {
   unite_legale: {
@@ -46,6 +33,7 @@ export type User = {
 };
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const { data: user } = useFetcher(BASE_URL.user) as { data: User };
   const { data: company } = useFetcher(BASE_URL.record) as { data: Company };
   const { data: accounts } = useFetcher(BASE_URL.accounts) as { data: AccountsInfoProps};
@@ -53,6 +41,11 @@ const Home: NextPage = () => {
 
   const { first, last } = user?.results[0].name;
   const { denomination, etablissement_siege } = company.unite_legale;
+
+  const handleUserProfileClick = (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    router.push('/user');
+  }
 
   return (
     <>
@@ -63,7 +56,9 @@ const Home: NextPage = () => {
       </Head>
       <StyledHeader />
       <Wrapper>
+        <a href="/user" onClick={handleUserProfileClick} data-testid="userProfilePage">
         <ProfileCardHeader name={first} lastname={last} />
+        </a>
         <StyledCompanyInfo
           denomination={denomination}
           address={etablissement_siege.geo_adresse}
