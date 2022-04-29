@@ -2,12 +2,14 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
     "airbnb",
     "airbnb-typescript",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "react/require-default-props": 0,
     "import/prefer-default-export": 0,
@@ -17,11 +19,19 @@
     "jsx-a11y/anchor-is-valid": 0,
     "react/jsx-key": 2,
     "react/prop-types": 0,
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ]
   },
   "overrides": [
     {
-      "files": ["*ts", "*tsx", "*js", "jsx"]
+      "files": ["*ts", "*tsx"]
     }
   ]
 }
