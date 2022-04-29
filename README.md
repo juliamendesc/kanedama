@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/MansaGroup/kanedama" target="blank"><img src="./.github/assets/logo.png" width="80" alt="Mansa's Logo" /></a></p>
+<p align="center"><a href="https://github.com/MansaGroup/kanedama" target="blank"><img src=".github/assets/logo.png" width="80" alt="Mansa's Logo" /></a></p>
 <h1 align="center">Mansa's Kanedama</h1>
 <p align="center">Julia's take home test made with 💜 to <b>join you</b></p>
 
@@ -26,11 +26,11 @@ Let's see a comparison between the wireframe and the final product, but you can 
 
 ### Wireframe
 
-<img src=../.github/assets/frontend/frontend-wireframe.png height="450px" />
+<img src=.github/assets/frontend/frontend-wireframe.png height="450px" />
 
 ### Final Design
 
-<img src=../.github/assets/frontend/Screenshot.png height="400px" />
+<img src=.github/assets/frontend/Screenshot.png height="400px" />
 
 I know it's not a perfect implementation, but I feel quite please to have been able to produce this with pure css manipulation, without the use of any external libraries. In this regard, altough I know a library could possibly offer a prettier, better suited solution for a test like this, my intention was to show that I'm able to develop from scratch as well, including the Mansa logo!
 
@@ -96,4 +96,8 @@ My main goal since I decided to transition to programming is to learn and enjoy 
 
 Once again, thank you for your time and for all the team throughout this recruiting process. I felt very welcomed and motivated to join Mansa!
 
-![](https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif)
+> For the deployed version, please visit [this](https://kanedama-eta.vercel.app/).
+
+<p align="center">
+<img src=https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif />
+</p>
