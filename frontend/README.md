@@ -20,8 +20,8 @@ Your mission, should you accept it, is to create a dashboard-like UI, where we c
 
 Global design to follow can be found below (feel free to improve and/or add your personnal touch - you won't be penalized if not)
 
-|                        User page                        |
-| :-----------------------------------------------------: |
+|                               User page                                |
+| :--------------------------------------------------------------------: |
 | ![Design wireframe](../.github/assets/frontend/frontend-wireframe.png) |
 
 ### Scope
@@ -32,11 +32,11 @@ You will need to leverage an open API for business data to fill in the details a
 
 ## Delivery
 
-A clone or fork of this repositery containing:
+A clone or fork of this repository containing:
 
 - An integration of the wireframe above, with the data flow described in this brief
 - Some tests (what to test and the types of tests are at your appreciation)
-- A README file at the root of your repo explaining 
+- A README file at the root of your repo explaining
   - your approach and design choices
   - how long did it take you to complete the test? (you are not evaluated on your rapidity)
   - if you had to do a second iteration, what would you add or improve?
@@ -45,7 +45,7 @@ Bonus:
 
 - Deployed app
 - Atomic, reusable and stateless base components
-- Add a UI interaction of your choice: a button, a dialog, a filter, a second user page, etc. 
+- Add a UI interaction of your choice: a button, a dialog, a filter, a second user page, etc.
 
 Our stack consists of TypeScript, React, [Next.js](https://nextjs.org/), CSS-in-JS with [styled-component](https://styled-components.com/), and we test with Jest and Cypress.
 
