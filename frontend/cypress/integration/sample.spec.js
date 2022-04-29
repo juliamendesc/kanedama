@@ -20,18 +20,17 @@ describe('Homepage basics', () => {
   });
 });
 
-// it('Shows correct company information', () => {
-//   cy.customFetch('denomination').contains('MANSA GROUP');
-//   cy.customFetch('siret').contains('85237989000019');
-//   cy.customFetch('geo_adresse').contains('112 Avenue de Paris 94300 Vincennes');
-// });
-
-// it('Shows correct accounts information', () => {
-//   cy.customFetch('account_id').contains('4f7eff50-c261-11e9-9c35-59cda6eb4cf9');
-//   cy.customFetch('available').contains(851.97);
-//   cy.customFetch('iban').contains('GB87NPMA07400310171236');
-//   cy.customFetch('currency').contains('GBP');
-// });
+describe('API testing', () => {
+  before(function () {
+    cy.visit('http://localhost:3000/');
+    cy.fixture('company').then(function (data) {
+      this.data = data;
+    });
+  });
+  it('Checks api request to company meets information fetched', function () {
+    cy.get('[data-testid="denomination"]').should('contain', this.data.unite_legale.denomination);
+  });
+});
 
 describe('Homepage Viewport tests', () => {
   it('should display the homepage in different viewports', () => {
@@ -53,17 +52,5 @@ describe('Homepage Viewport tests', () => {
     cy.wait(400);
     cy.viewport('macbook-16');
     cy.wait(1000);
-  });
-});
-
-describe('API testing', () => {
-  before(function () {
-    cy.visit('http://localhost:3000/');
-    cy.fixture('company').then(function (data) {
-      this.data = data;
-    });
-  });
-  it('Checks api request to company meets information fetched', function () {
-    cy.get('[data-testid="denomination"]').should('contain', this.data.unite_legale.denomination);
   });
 });
