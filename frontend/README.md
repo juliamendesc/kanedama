@@ -1,97 +1,99 @@
-<p align="center"><a href="https://github.com/MansaGroup/kanedama" target="blank"><img src="../.github/assets/logo.png" width="80" alt="Mansa's Logo" /></a></p>
+<p align="center"><a href="https://github.com/MansaGroup/kanedama" target="blank"><img src="./.github/assets/logo.png" width="80" alt="Mansa's Logo" /></a></p>
 <h1 align="center">Mansa's Kanedama</h1>
-<p align="center">Take home test to <b>join us</b> 💜</p>
+<p align="center">Julia's take home test made with 💜 to <b>join you</b></p>
 
-## The Mission
+## Introduction
 
-Your mission, should you accept it, is to create a dashboard-like UI, where we can find:
+Dear code reviewer, welcome! 🥳🥳
 
-- User's personal information
-  - First & Last name
-- User's business information
-  - SIRET number
-  - Creation date
-  - Address (example: 10 Rue Gabriel Peri 92120, Montrouge)
-- User's financial information
-  - Accounts (TRANSACTION / SAVINGS)
-  - Current balance
+First of all, thank you for taking your time to evaluate me. I imagine you do this quite often and it should be somehow tedious considering my lack of seniority.
 
-### Design
+Nonetheless, I truly appreciate the opportunity to have my code reviewed and welcome any comments or tips to improve and become a better programmer, should you wish to offer any.
 
-Global design to follow can be found below (feel free to improve and/or add your personnal touch - you won't be penalized if not)
+> I would also like to thank you for facilitating so many steps of this test. The starter project, the thorough and clear READMEs (at the root and at the specific test folders), and the information about how the code is evaluated are honestly appreciated.
 
-|                               User page                                |
-| :--------------------------------------------------------------------: |
-| ![Design wireframe](../.github/assets/frontend/frontend-wireframe.png) |
+So, let's begin! You can find my test in the **[frontend](frontend)** folder.
 
-### Scope
+<p align="center">
+<img src=https://media.giphy.com/media/3BUYbmXltgQ4zu0Tv5/giphy.gif />
+</p>
 
-The view should only be for **one** single user.
+# The Mission 🎯
 
-You will need to leverage an open API for business data to fill in the details and functionality as described below.
+The dashboard integrates the wireframe according to the design provided. Although no design was delivered for mobile and other screen sizes, I did my best to adapt my code so it would at least be responsive.
 
-## Delivery
+Let's see a comparison between the wireframe and the final product, but you can also check my cypress test! 🙂
 
-A clone or fork of this repository containing:
+### Wireframe
 
-- An integration of the wireframe above, with the data flow described in this brief
-- Some tests (what to test and the types of tests are at your appreciation)
-- A README file at the root of your repo explaining
-  - your approach and design choices
-  - how long did it take you to complete the test? (you are not evaluated on your rapidity)
-  - if you had to do a second iteration, what would you add or improve?
+<img src=../.github/assets/frontend/frontend-wireframe.png height="450px" />
 
-Bonus:
+### Final Design
 
-- Deployed app
-- Atomic, reusable and stateless base components
-- Add a UI interaction of your choice: a button, a dialog, a filter, a second user page, etc.
+<img src=../.github/assets/frontend/Screenshot.png height="400px" />
 
-Our stack consists of TypeScript, React, [Next.js](https://nextjs.org/), CSS-in-JS with [styled-component](https://styled-components.com/), and we test with Jest and Cypress.
+I know it's not a perfect implementation, but I feel quite please to have been able to produce this with pure css manipulation, without the use of any external libraries. In this regard, altough I know a library could possibly offer a prettier, better suited solution for a test like this, my intention was to show that I'm able to develop from scratch as well, including the Mansa logo!
 
-If you're comfortable with it, we encourage you to complete the test in the stack described above. You're also free to use a component library to get you started and any other package that you might think necessary.
+According to the mission, the page presents dynamic information, retrieved through the use of [Vercel's](https://swr.vercel.app/) `useSWR` hook. I chose this hook since it is easily configurable by following the documentation and because it also allows for data caching and, thus, helps improve performance. Furthermore, since it is developed by Vercel, it is well integrated with Next.js.
 
-We expect you to test your code: unit and end-to-end tests are a big plus. From our experience React Testing Library (on top of Jest) and Cypress work very well for React application testing, but you're free to pick your favourite.
+> Now a few reflections on my general choices:
 
-### What We Care About
+# Styles 💅🏻
 
-We're interested in your method and how you approach the problem just as much as we're interested in the end result.
+Although I have worked with styled components before, in a small side-project, this was a great opportunity to increase my knowledge on it. I decided to set all global css in the template project in a global style. In addition, I also developed a small theme to set some variables I would use during the development. Lastly, I created a [core folder](frontend/src/styles/core/index.ts) that contains the basic styles of components that are reused. These components accept further stylization passed dynamic through the component props.
 
-Here's what you should strive for:
+# Absence of Interface/Types/Styled Components definition files 📂
 
-- A consistent architecture, focused on the simplicity of the project (**keep it simple!**), pragmatism, no over-engineering
-- Extensible code
-- Clear data flow (with at least one custom hook for data fetching)
-- Fluid layout that would fit on main viewports (from mobile to desktop)
-- Concise and clear commit messages
-- Complete user information (Profil picture, phone number, etc ...) with
-  another API like [randomuser](https://randomuser.me)
+Despite of being a programmer for fairly little time, I personally think that creating a file to gather all interfaces, types or styled components definitions creates a major setback when it comes to code-review or maintenance, since it demands the developer to constantly switch between files.
 
-## The APIs
+As all files are small, I opted for concentrating these in the components' files, after the import declarations, in the following order: interfaces/types, then styled components.
 
-### French government API
+# Components 🧱
 
-For business information, you'll have to use the French SIRENE public API,
-you can find the documentation about it [here](https://entreprise.data.gouv.fr/api_doc/sirene).
+Whenever possible, I choose to leave logic outside components. Data is fetched inside the home page and passed to components through props. Therefore, all files in the components folder focus on the appearance, whereas the logic remains in a different file.
 
-You can retrieve the information about a business by using the following URL:
-`https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/:siren`
+# [Libs > Constants](frontend/src/libs/constants.ts) 📈
 
-> The `unites_legales` object contains all the necessary information.
+This file was created with the intent to simulate an .env file and enabling the developed to variables during fetching the data. To allow you to directly see final product, and since all the URLs are public, I opted for leaving them in this file, but also put and example of how I would fetch the variable in the .env.
 
-For example, [here is the API link](https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/852379890)
-that gives you the SIRENE profile of MansaGroup:
+# Cypress 👩‍🔬
 
-You can choose any SIREN (legal id) you want for your test.
+This was my major difficulty in this test by far! 😵‍💫
 
-### Kanedama API
+As stated in my technical interview, I have never worked with tests before. Coincidently, this week I had the opportunity to attend a meet-up about Cypress and decided to dive into it.
 
-For financial information, you'll use a custom API:
+I have spend around three days on this step, reading the documentation and following a few tutorials to be able to develop some tests.
 
-| Method  | Endpoint  | Description                                |
-| ------- | --------- | ------------------------------------------ |
-| **GET** | /accounts | Fetch all bank accounts from a _test user_ |
+As for the chosen tests, I chose to maintain three simple, but working tests that aim to:
 
-**Root endpoint is: https://kata.getmansa.tech/**
+- test component integration to the main page;
+- test the data fetched;
+- test the responsiveness of the design.
 
-You can see our [Backend test README](../backend/README.md) if you want more information about this endpoint.
+I know it is far from what you probably need and would like to see, but this is where I believe my dedication and commitment really stands out: I accepted the challenge, dedicated myself into learning how to do it and was able to deliver what was asked in a reasonable amount of time for the whole test. For me, the most important here is to be able to show you that I can learn and that I will do my best to meet your standards. 😊
+
+# Timeline and approach ⏱️
+
+I chose to develop the static part first, add responsiveness to it, integrate data and design tests. In summary, it took me:
+
+- 1 day to complete the static part and responsiveness
+- 1/2 day to implement the `useSWR` and 1/2 day to integrate with the design
+- 2 full days for the testing part.
+
+# Second try 🥈
+
+If I had a chance to follow-up on this project, I would definitely try to develop more complex tests.
+
+Among the tests I attempted - but failed - were to check whether the API endpoint was valid and whether I could pass a pre-determined user to my bonus 🤯 user profile page.
+
+I would also like to improve the layout of my bonus user profile page (my creativity is more towards problem-solving than for artistic development, so the card looks really simple), and to treat the fetched data to guarantee it would suit the object typed for our specific needs.
+
+# Final thoughts 💭
+
+I feel very accomplished to finish this test in one week. I also believe I have met your criteria on what you care about and that I am a suitable match for your company and your mindset.
+
+My main goal since I decided to transition to programming is to learn and enjoy this pleasant ride, so any advice for improvement is highly valuable, even in the event of a negative outcome.
+
+Once again, thank you for your time and for all the team throughout this recruiting process. I felt very welcomed and motivated to join Mansa!
+
+![](https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif)
