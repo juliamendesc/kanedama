@@ -1,0 +1,16 @@
+{
+  "unite_legale": {
+    "id": 270555077,
+    "denomination": "MANSA GROUP",
+    "etablissement_siege": {
+      "id": 1587274210,
+      "siret": "85237989000019"
+    },
+    "etablissements": [
+      {
+        "id": 1587274210,
+        "geo_adresse": "112 Avenue de Paris 94300 Vincennes"
+      }
+    ]
+  }
+}

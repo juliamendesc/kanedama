@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "name": {
+        "title": "Mrs",
+        "first": "Pihla",
+        "last": "Ketola"
+      },
+      "location": {
+        "city": "Jakobstad",
+        "state": "Central Finland",
+        "country": "Finland"
+      },
+      "login": {
+        "username": "organicduck240"
+      },
+      "dob": {
+        "age": 45
+      },
+      "id": {
+        "name": "HETU",
+        "value": "NaNNA592undefined"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/women/92.jpg"
+      }
+    }
+  ]
+}

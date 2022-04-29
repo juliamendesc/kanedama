@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Spinner from 'components/Spinner';
-import { StyledHeader } from '@/components/Header';
 import useFetcher from 'hooks/useFetcher';
 import BASE_URL from 'libs/constants';
-import { ComponentArticle, ComponentItem, Title, Wrapper } from 'styles/core';
+import { StyledHeader } from 'components/Header';
+import Spinner from 'components/Spinner';
 import GlobalStyle from 'styles/global';
+import { ComponentArticle, ComponentItem, Title, Wrapper } from 'styles/core';
+import { ProfileAvatar } from '@/components/ProfileCardHeader';
 
 type UserProfileProps = {
   name: {
@@ -43,16 +44,6 @@ const Avatar = styled.div`
   position: relative;
   align-items: center;
   display: inline-flex;
-  img {
-    width: 9.6rem;
-    height: 9.6rem;
-    border-radius: 50%;
-    border: 0.5rem solid var(--color-white);
-    @media (min-width: 480px) {
-      width: 10.6rem;
-      height: 10.6rem;
-    }
-  }
 `;
 
 const UserDetails = styled(ComponentArticle)`
@@ -69,14 +60,14 @@ const UserItem = styled(ComponentItem)`
   font-size: 1.2rem;
   padding: 1.5rem;
 
-@media (min-width: ${({ theme }) => theme.mobile.medium}) {
-  font-size: 1.4rem;
-  text-align: start;
-  margin: 0;
-}
+  @media (min-width: ${({ theme }) => theme.mobile.medium}) {
+    font-size: 1.4rem;
+    text-align: start;
+    margin: 0;
+  }
 `;
 
-export default function ProfileCard() {
+const ProfileCard = () => {
   const { data: userInfo } = useFetcher(BASE_URL.user) as any;
   if (!userInfo) return <Spinner />;
   const userProfile = userInfo.results[0] as UserProfileProps;
@@ -88,9 +79,15 @@ export default function ProfileCard() {
       <Wrapper>
         <Card>
           <Avatar>
-            <img src={userProfile.picture.large} alt="avatar" />
+            {userProfile.picture.large && (
+              <ProfileAvatar
+                src={userProfile.picture.large}
+                alt="avatar"
+                width="150px"
+                height="150px"
+              />
+            )}
           </Avatar>
-
           <Title>
             {userProfile.name.first} {userProfile.name.last}
           </Title>
@@ -107,4 +104,6 @@ export default function ProfileCard() {
       </Wrapper>
     </>
   );
-}
+};
+
+export default ProfileCard;
